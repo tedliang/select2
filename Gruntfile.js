@@ -198,6 +198,7 @@ module.exports = function (grunt) {
 
     jshint: {
       options: {
+	reporterOutput: '',
         jshintrc: true
       },
       code: {
