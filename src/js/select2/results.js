@@ -270,16 +270,7 @@ define([
       self.showLoading(params);
     });
 
-    container.on('select', function () {
-      if (!container.isOpen()) {
-        return;
-      }
-
-      self.setClasses();
-      self.highlightFirstItem();
-    });
-
-    container.on('unselect', function () {
+    container.on('select unselect', function () {
       if (!container.isOpen()) {
         return;
       }

@@ -8,11 +8,7 @@ define([
 
     decorated.call(this, container, $container);
 
-    container.on('select', function (evt) {
-      self._selectTriggered(evt);
-    });
-
-    container.on('unselect', function (evt) {
+    container.on('select unselect', function (evt) {
       self._selectTriggered(evt);
     });
   };

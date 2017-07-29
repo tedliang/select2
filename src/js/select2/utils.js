@@ -113,13 +113,15 @@ define([
   };
 
   Observable.prototype.on = function (event, callback) {
-    this.listeners = this.listeners || {};
+    var listeners = this.listeners = this.listeners || {};
 
-    if (event in this.listeners) {
-      this.listeners[event].push(callback);
-    } else {
-      this.listeners[event] = [callback];
-    }
+    $.each(event.split(' '), function () {
+      if (this in listeners) {
+        listeners[this].push(callback);
+      } else {
+        listeners[this] = [callback];
+      }
+    });
   };
 
   Observable.prototype.trigger = function (event) {
