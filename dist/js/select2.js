@@ -1,5 +1,5 @@
 /*!
- * Select2 4.0.3
+ * Select2 4.0.4-rc1
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -613,13 +613,15 @@ S2.define('select2/utils',[
   };
 
   Observable.prototype.on = function (event, callback) {
-    this.listeners = this.listeners || {};
+    var listeners = this.listeners = this.listeners || {};
 
-    if (event in this.listeners) {
-      this.listeners[event].push(callback);
-    } else {
-      this.listeners[event] = [callback];
-    }
+    $.each(event.split(' '), function () {
+      if (this in listeners) {
+        listeners[this].push(callback);
+      } else {
+        listeners[this] = [callback];
+      }
+    });
   };
 
   Observable.prototype.trigger = function (event) {
@@ -1047,16 +1049,7 @@ S2.define('select2/results',[
       self.showLoading(params);
     });
 
-    container.on('select', function () {
-      if (!container.isOpen()) {
-        return;
-      }
-
-      self.setClasses();
-      self.highlightFirstItem();
-    });
-
-    container.on('unselect', function () {
+    container.on('select unselect', function () {
       if (!container.isOpen()) {
         return;
       }
@@ -4070,12 +4063,7 @@ S2.define('select2/dropdown/infiniteScroll',[
 
     decorated.call(this, container, $container);
 
-    container.on('query', function (params) {
-      self.lastParams = params;
-      self.loading = true;
-    });
-
-    container.on('query:append', function (params) {
+    container.on('query query:append', function (params) {
       self.lastParams = params;
       self.loading = true;
     });
@@ -4451,11 +4439,7 @@ S2.define('select2/dropdown/closeOnSelect',[
 
     decorated.call(this, container, $container);
 
-    container.on('select', function (evt) {
-      self._selectTriggered(evt);
-    });
-
-    container.on('unselect', function (evt) {
+    container.on('select unselect', function (evt) {
       self._selectTriggered(evt);
     });
   };
