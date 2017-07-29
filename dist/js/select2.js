@@ -4156,12 +4156,7 @@ S2.define('select2/dropdown/attachBody',[
       if (!setupResultsEvents) {
         setupResultsEvents = true;
 
-        container.on('results:all', function () {
-          self._positionDropdown();
-          self._resizeDropdown();
-        });
-
-        container.on('results:append', function () {
+        container.on('results:all results:append', function () {
           self._positionDropdown();
           self._resizeDropdown();
         });

@@ -26,12 +26,7 @@ define([
 
     decorated.call(this, container, $container);
 
-    container.on('query', function (params) {
-      self.lastParams = params;
-      self.loading = true;
-    });
-
-    container.on('query:append', function (params) {
+    container.on('query query:append', function (params) {
       self.lastParams = params;
       self.loading = true;
     });
